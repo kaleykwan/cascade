@@ -1,0 +1,34 @@
+.project-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.project-data {
+  width: 300px;
+}
+
+.project-name {
+  margin: 0;
+}
+
+.project-description {
+  margin: 0;
+  text-align: left;
+  width: 300px;
+}
+
+.project-tags {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-self: center;
+}
+
+.project-tag {
+  padding: 5px 10px;
+  color: white;
+  border-radius: 10px;
+  margin: 0;
+  font-size: small;
+}
