@@ -4,13 +4,17 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { ProjectList } from "./components/projectList";
 import { CreateProject } from "./components/createProject";
+import { Report } from "./components/report";
 
 function App() {
 
   return (
-    <div className="main-container">
-      <ProjectList />
-      <CreateProject />
+    <div>
+      <div className="main-container">
+        <ProjectList />
+        <CreateProject />
+      </div>
+      <Report />
     </div>
   );
 }

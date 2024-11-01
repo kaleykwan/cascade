@@ -1,0 +1,5 @@
+.company-client-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

@@ -66,7 +66,7 @@ export const Project = (props) => {
             className="project-tag"
             style={{
               backgroundColor:
-                props.project.status === "complete"
+                props.project.status === "completed"
                   ? "#339119"
                   : props.project.status === "in-progress"
                   ? "#ebb515"

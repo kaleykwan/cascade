@@ -26,7 +26,7 @@ export const ProjectList = () => {
       method: "DELETE",
     });
     const newProjects = projects.filter((el) => el._id !== id);
-    setProjects(newProjects);
+    setProjects([...newProjects]);
   }
 
   // This method will map out the records on the table
