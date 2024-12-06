@@ -8,6 +8,19 @@ import { ObjectId } from "mongodb";
 
 import Project from "../models/projectModel.js";
 
+const sanitizeInput = (input) => {
+  // Remove special characters
+  let sanitizedInput = input.replace(/[^\w\s\-]/g, "");
+
+  // Trim extra whitespace
+  sanitizedInput = sanitizedInput.trim();
+
+  // Replace consecutive spaces with a single space
+  sanitizedInput = sanitizedInput.replace(/\s+/g, " ");
+
+  return sanitizedInput;
+};
+
 // router is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
@@ -39,14 +52,20 @@ router.get("/byclient/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { name, description, priority, status, client_id, company_id } =
     req.body;
+  const sanitizedName = sanitizeInput(name);
+  const sanitizedDescription = sanitizeInput(description);
+  const sanitizedPriority = sanitizeInput(priority);
+  const sanitizedStatus = sanitizeInput(status);
+  const sanitizedClient_id = sanitizeInput(client_id);
+  const sanitizedCompany_id = sanitizeInput(company_id);
   try {
     const project = await Project.create({
-      name,
-      description,
-      priority,
-      status,
-      client_id,
-      company_id,
+      name: sanitizedName,
+      description: sanitizedDescription,
+      priority: sanitizedPriority,
+      status: sanitizedStatus,
+      client_id: sanitizedClient_id,
+      company_id: sanitizedCompany_id,
     });
     res.status(200).json(project);
   } catch (err) {
@@ -58,11 +77,16 @@ router.post("/", async (req, res) => {
 // This section will help you update a project by id.
 router.patch("/:id", async (req, res) => {
   try {
-    let projectToUpdate = await Project.findById(req.params.id);
-    projectToUpdate.name = req.body.name;
-    projectToUpdate.status = req.body.status;
-    projectToUpdate.priority = req.body.priority;
-    await projectToUpdate.save();
+    await Project.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          name: req.body.name,
+          status: req.body.status,
+          priority: req.body.priority,
+        },
+      }
+    );
     res.status(200);
   } catch (err) {
     console.error(err);

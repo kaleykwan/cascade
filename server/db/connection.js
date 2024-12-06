@@ -19,6 +19,6 @@ try {
   console.error(err);
 }
 
-let db = client.db("cascade");
+let db = client.db("test");
 
 export default db;

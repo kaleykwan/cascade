@@ -9,6 +9,9 @@ const projectSchema = new mongoose.Schema({
   company_id: String,
 });
 
+projectSchema.index({ company_id: 1 });
+projectSchema.index({ client_id: 1 });
+
 const Project = mongoose.model("Project", projectSchema);
 
 export default Project;
